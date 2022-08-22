@@ -7,27 +7,38 @@ set up nginx and Let’s Encrypt with Docker](https://medium.com/@pentacent/ngin
 Encrypt certificate for one or multiple domains in a docker-compose
 setup with nginx.
 This is useful when you need to set up nginx as a reverse proxy for an
-application.
+application, or when you need to spin up a simple web page.
 
 ## Installation
 1. [Install docker-compose](https://docs.docker.com/compose/install/#install-compose).
 
-2. Clone this repository: `git clone https://github.com/wmnnd/nginx-certbot.git .`
+2. In your working directory, clone this repository: `git clone https://github.com/oabsixr/nginx-certbot.git .`
 
 3. Modify configuration:
-- Add domains and email addresses to init-letsencrypt.sh
-- Replace all occurrences of example.org with primary domain (the first one you added to init-letsencrypt.sh) in data/nginx/app.conf
+    * Add domains and email addresses to init-letsencrypt.sh in lines 11, 12
+    * Replace all occurrences of example.org with primary domain (the first one you added to init-letsencrypt.sh) in data/nginx/conf/app.conf
 
+      ```sed -i 's/example.org/<new domain name>/g' data/nginx/conf/app.conf```
+
+    * Put website pages in data/html
+      * eg. Update index.html to serve the content you want, or add static pages as necessary.
+    
 4. Run the init script:
 
-        ./init-letsencrypt.sh
+    ```./init-letsencrypt.sh```
 
-5. Run the server:
+The site should now be up and running.
 
-        docker-compose up
 
-## Got questions?
-Feel free to post questions in the comment section of the [accompanying guide](https://medium.com/@pentacent/nginx-and-lets-encrypt-with-docker-in-less-than-5-minutes-b4b8a60d3a71)
+# Additional operational controls
+## Stop the server:
+
+    docker compose down
+
+## Run the server:
+
+    docker compose up
+
 
 ## License
 All code in this repository is licensed under the terms of the `MIT License`. For further information please refer to the `LICENSE` file.
