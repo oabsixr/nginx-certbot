@@ -14,14 +14,29 @@ application, or when you need to spin up a simple web page.
 
 2. In your working directory, clone this repository: `git clone https://github.com/oabsixr/nginx-certbot.git .`
 
-3. Modify configuration:
+3. Update the configurations as per requirements:
+  
+    ***a. Static web host - Modify configuration:***
     * Add domains and email addresses to init-letsencrypt.sh in lines 11, 12
     * Replace all occurrences of example.org with primary domain (the first one you added to init-letsencrypt.sh) in data/nginx/conf/app.conf
 
-      ```sed -i 's/example.org/<new domain name>/g' data/nginx/conf/app.conf```
+      `sed -i 's/example.org/<new domain name>/g' data/nginx/conf/app.conf`
 
     * Put website pages in data/html
       * eg. Update index.html to serve the content you want, or add static pages as necessary.
+    
+    ***b. Reverse proxy - Modify configuration:***
+	* Add domains and email addresses to init-letsencrypt.sh in lines 11, 12
+   * Replace all occurrences of example.org with primary domain (the first one you added to init-letsencrypt.sh) in data/nginx/conf/app.conf
+
+      ```sed -i 's/example.org/<new domain name>/g' data/nginx/conf/app.conf```
+	  
+     
+     
+	* In data/nginx/conf/app.conf, look for the 'location /' code block and do the following: 
+	  * comment out the 'root' instruction.
+	  * uncomment the 'proxy_pass' instruction.
+	  * update the value in proxy_pass to the url to proxy traffic to.
     
 4. Run the init script:
 
